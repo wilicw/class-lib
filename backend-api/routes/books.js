@@ -35,18 +35,8 @@ router.post('/', async function (req, res, next) {
   if (!result) {
     return next(new Error('Book not found!'))
   }
-  const book = Book.build(result);
+  const book = Book.build(result[0]);
   book.save();
-  res.json(book);
-});
-
-/* DELETE book. */
-router.delete('/:id', async function (req, res, next) {
-  const book = await Book.destroy({
-    where: {
-      id: parseInt(req.params.id)
-    }
-  });
   res.json(book);
 });
 

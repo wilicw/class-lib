@@ -93,7 +93,7 @@
                   </thead>
                   <tbody>
                     <tr v-for="record in records" :key="record.name">
-                      <td>{{ record.user_id }}</td>
+                      <td>{{ record.user_name }}</td>
                       <td>{{ record.createdAt }}</td>
                     </tr>
                   </tbody>
@@ -128,7 +128,14 @@ export default {
       try {
         const result = (await api.get_book_by_id(id)).data;
         this.book = result.book;
-        this.records = result.record;
+        result.record.forEach(async (o) => {
+          let name = (await api.get_name_by_id(o.user_id)).data.name;
+          this.records.push({
+            id: o.id,
+            createdAt: o.createdAt,
+            user_name: name,
+          });
+        });
       } catch (error) {
         this.$route.push("/");
       }

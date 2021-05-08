@@ -25,5 +25,7 @@ export default {
     client.post(`/books/return/${id}`, {
       username: username,
       password: password
-    })
+    }),
+  get_name_by_id: (id) =>
+    client.get(`/users/${id}`)
 }
