@@ -13,4 +13,4 @@ RUN npm install
 COPY backend-api/ .
 COPY --from=build /app/dist ../front-ui/dist
 EXPOSE 3000
-CMD [ "node", "./bin/www" ]
+ENTRYPOINT [ "node", "./bin/www" ]
